@@ -1,0 +1,2 @@
+timestamp,super_node_annual_roi,secure_node_annual_roi,zen_price_usd,super_node_data,secure_node_data,super_node_stake,secure_node_stake,super_node_server_cost,secure_node_server_cost
+2018-07-27T17:10:48.034914Z,0.31657904706629064,0.4480633751630004,31.5697,"{'total': 1631, 'up': 1494, 'down': 72, 'inactive': 65}","{'total': 13953, 'up': 11459, 'down': 775, 'inactive': 1718}",500,42,40,10

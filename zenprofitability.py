@@ -1,8 +1,15 @@
 #!/usr/bin/env python
 
+import csv
+import os
+from datetime import datetime
 import requests
 
 # Constants
+DATA_SUBDIRECTORY = 'results'
+OUTPUT_FILE = os.path.join(os.path.dirname(__file__), DATA_SUBDIRECTORY,\
+                           'zen_tracker.csv')
+
 SUPER_NODE_API = 'https://supernodes1.eu.zensystem.io/api/srvstats'
 SECURE_NODE_API = 'https://securenodes.eu.zensystem.io/api/srvstats'
 ZEN_PRICE_API = 'https://api.coinmarketcap.com/v2/ticker/1698/'
@@ -47,6 +54,7 @@ SUPER_NODE_ANNUAL_ROI = SUPER_NODE_ANNUAL_PROFIT_ZEN / SUPER_NODE_STAKE
 SECURE_NODE_ANNUAL_ROI = SECURE_NODE_ANNUAL_PROFIT_ZEN / SECURE_NODE_STAKE
 
 final_result = {
+    'timestamp': datetime.utcnow().isoformat() + 'Z',
     'super_node_annual_roi': SUPER_NODE_ANNUAL_ROI,
     'secure_node_annual_roi': SECURE_NODE_ANNUAL_ROI,
     'zen_price_usd': ZEN_PRICE,
@@ -58,4 +66,19 @@ final_result = {
     'secure_node_server_cost': SECURE_NODE_SERVER_COST,
 }
 
-print(final_result)
+def init_csv():
+    if not os.path.isfile(OUTPUT_FILE):
+        if not os.path.exists(DATA_SUBDIRECTORY):
+            os.makedirs(DATA_SUBDIRECTORY)
+
+        f = open(OUTPUT_FILE, 'a')
+        w = csv.DictWriter(f, final_result.keys())
+        w.writeheader()
+
+if __name__ == '__main__':
+    print('ZenCash ROI Tracker')
+    init_csv()
+
+    with open(OUTPUT_FILE, 'a') as f:  # Just use 'w' mode in 3.x
+        w = csv.DictWriter(f, final_result.keys())
+        w.writerow(final_result)
