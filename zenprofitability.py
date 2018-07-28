@@ -7,7 +7,7 @@ import requests
 
 # Constants
 DATA_SUBDIRECTORY = 'results'
-OUTPUT_FILE = os.path.join(os.path.dirname(__file__), DATA_SUBDIRECTORY,\
+OUTPUT_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), DATA_SUBDIRECTORY,\
                            'zen_tracker.csv')
 
 SUPER_NODE_API = 'https://supernodes1.eu.zensystem.io/api/srvstats'
